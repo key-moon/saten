@@ -1,4 +1,3 @@
-import MockPage from "./mockPage";
 import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
 import { SourceCode } from "../model/sourcecode";
