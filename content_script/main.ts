@@ -1,6 +1,6 @@
-import ContestSite from "./view/contestsite";
+import ProblemPage from "./view/problemPage";
 
-const contestSite: ContestSite = ContestSite.getCurrentContestSite();
+const contestSite: ProblemPage = ProblemPage.getCurrentContestSite();
 
 contestSite.init();
 

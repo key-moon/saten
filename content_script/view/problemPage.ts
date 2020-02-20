@@ -1,9 +1,9 @@
-import MockSite from "./mocksite";
+import MockPage from "./mockPage";
 import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
 import SourceCode from "../model/sourcecode";
 
-abstract class ContestSite {
+abstract class ProblemPage {
     abstract siteName: string;
     onTestButtonClicked: (sourceCode: SourceCode) => void;
 
@@ -13,9 +13,9 @@ abstract class ContestSite {
 
     abstract setTestResults(testResults: TestResult[]): void;
 
-    static getCurrentContestSite(): ContestSite {
-        return new MockSite();
+    static getCurrentContestSite(): ProblemPage {
+        return new MockPage();
     }
 }
 
-export default ContestSite;
+export default ProblemPage;
