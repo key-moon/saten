@@ -2,8 +2,10 @@ import ProblemPage from "./view/problemPage";
 
 const contestSite: ProblemPage = ProblemPage.getCurrentContestSite();
 
-contestSite.init();
+if (typeof contestSite !== "undefined") {
+    contestSite.init();
 
-contestSite.onTestButtonClicked = sourceCode => {
-    return;
-};
+    contestSite.onTestButtonClicked = sourceCode => {
+        return;
+    };
+}
