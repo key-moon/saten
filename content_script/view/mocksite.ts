@@ -3,13 +3,17 @@ import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
 
 export default class MockSite extends ContestSite {
-  siteName = "mock";
+    siteName = "mock";
 
-  init(): void {}
+    init(): void {
+        return;
+    }
 
-  getTestCases(): TestCase[] {
-    return [];
-  }
+    getTestCases(): TestCase[] {
+        return [];
+    }
 
-  setTestResults(testResults: TestResult[]): void {}
+    setTestResults(testResults: TestResult[]): void {
+        return;
+    }
 }

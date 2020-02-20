@@ -4,18 +4,18 @@ import TestResult from "../model/testresult";
 import SourceCode from "../model/sourcecode";
 
 abstract class ContestSite {
-  abstract siteName: string;
-  onTestButtonClicked: (sourceCode: SourceCode) => void;
+    abstract siteName: string;
+    onTestButtonClicked: (sourceCode: SourceCode) => void;
 
-  abstract init(): void;
+    abstract init(): void;
 
-  abstract getTestCases(): TestCase[];
+    abstract getTestCases(): TestCase[];
 
-  abstract setTestResults(testResults: TestResult[]): void;
+    abstract setTestResults(testResults: TestResult[]): void;
 
-  static getCurrentContestSite(): ContestSite {
-    return new MockSite();
-  }
+    static getCurrentContestSite(): ContestSite {
+        return new MockSite();
+    }
 }
 
 export default ContestSite;

@@ -1,4 +1,4 @@
 export default class TestCase {
-  input: string;
-  output: string;
+    input: string;
+    output: string;
 }

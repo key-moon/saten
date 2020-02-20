@@ -4,4 +4,6 @@ const contestSite: ContestSite = ContestSite.getCurrentContestSite();
 
 contestSite.init();
 
-contestSite.onTestButtonClicked = sourceCode => {};
+contestSite.onTestButtonClicked = sourceCode => {
+    return;
+};

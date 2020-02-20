@@ -1,10 +1,10 @@
 enum Language {
-  CPlusPlus,
-  CSharp,
-  Python
+    CPlusPlus,
+    CSharp,
+    Python
 }
 
 export default class SourceCode {
-  language: Language;
-  source: string;
+    language: Language;
+    source: string;
 }
