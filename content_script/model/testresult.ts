@@ -1,14 +1,5 @@
 import TestCase from "./testcase";
-
-enum Status {
-    WJ,
-    AC,
-    WA,
-    RE,
-    TLE,
-    MLE,
-    CE
-}
+import Status from "./status";
 
 export default class TestResult {
     testCase: TestCase;
