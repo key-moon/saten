@@ -1,0 +1,18 @@
+{
+  "name": "saten",
+  "version": "0.0.1",
+  "description": "SaTeN is an in-browser sample tester works without network access.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/key-moon/SaTeN.git"
+  },
+  "author": "keymoon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/key-moon/SaTeN/issues"
+  },
+  "homepage": "https://github.com/key-moon/SaTeN#readme"
+}
