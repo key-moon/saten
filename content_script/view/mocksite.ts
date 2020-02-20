@@ -5,11 +5,11 @@ import TestResult from "../model/testresult";
 export default class MockSite extends ContestSite {
   siteName = "mock";
 
+  init(): void {}
+
   getTestCases(): TestCase[] {
     return [];
   }
 
-  setTestResults(testResults: TestResult[]): void {
-
-  }
+  setTestResults(testResults: TestResult[]): void {}
 }
