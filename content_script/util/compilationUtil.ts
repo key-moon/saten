@@ -3,7 +3,7 @@ import { sendMessage } from "./messagePassingUtil";
 import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
 
-class RunResult{
+class RunResult {
     elapsedTime: number;
     output: string;
     trace: string;
