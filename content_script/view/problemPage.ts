@@ -5,6 +5,7 @@ import { SourceCode } from "../model/sourcecode";
 import AtCoderProblemPage from "./atcoderProblemPage";
 
 abstract class ProblemPage {
+    testResults: TestResult[];
     abstract siteName: string;
     onTestButtonClicked: (sourceCode: SourceCode) => void;
 
@@ -12,7 +13,16 @@ abstract class ProblemPage {
 
     abstract getTestCases(): TestCase[];
 
-    abstract setTestResults(testResults: TestResult[]): void;
+    abstract showTestResults(): void;
+
+    abstract hideTestResults(): void;
+
+    abstract updateTestResults(): void;
+
+    setTestResults(testResults: TestResult[]): void {
+        this.testResults = testResults;
+        this.updateTestResults();
+    }
 
     static getCurrentContestSite(): ProblemPage {
         const atcoderRegex = /^https?:\/\/atcoder\.jp\/contests\/.*\/tasks\/.*$/;
