@@ -22,6 +22,7 @@
     "prettier/prettier" : [
       "error",
       {
+        "printWidth": 120,
         "tabWidth": 4
       }
     ]
