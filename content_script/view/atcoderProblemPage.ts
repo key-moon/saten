@@ -22,6 +22,24 @@ const languageDict: { [index: number]: Language } = {
     4047: Language.Python3 //PyPy3
 };
 
+const rules = [
+    `#sample-test-result-table h4 {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}`,
+    `#sample-test-result-table textarea {
+    resize: none;
+}`,
+    `.sample-test-result-half-div {
+    display: inline-block;
+    width: 50%;
+    padding: 5px
+    border-right: solid 1px grey;
+    border-left: solid 1px grey;
+}`
+];
+
 const resultTable = `<table class="table table-bordered table-striped th-center hide" id="sample-test-result-table">
     <thead>
         <tr>
@@ -40,6 +58,10 @@ const testButton = `<button type="button" id="sample-test-button" class="btn btn
 </button>`;
 
 function getTestResultElem(index: number, result: TestResult): string {
+    const status = result.status.toString();
+    const labelPrefix = status === "WJ" ? "default" : status === "AC" ? "success" : "warning";
+    let statusElem = `<span class="label label-${labelPrefix}>${status}</span>`;
+    if (statusElem === "WJ") statusElem += '<img src="//img.atcoder.jp/assets/icon/waiting.gif" alt="…">';
     return `<tr>
     <td class="text-center">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"/>
@@ -48,37 +70,38 @@ function getTestResultElem(index: number, result: TestResult): string {
         #${index + 1}
     </td>
     <td class="text-center">
-        <span class="label label-success">AC</span>
+        ${statusElem}
     </td>
-    <td class="text-center">
+    <td>
         ${result.elapsedTime}ms
     </td>
 </tr>
+<tr/>
 <tr>
-    <td class="" colspan="6" style="font-size:0">
+    <td colspan="4" style="font-size: 0">
         <div>
-            <h4 style="display: inline-block;width: 50%;text-align: center">サンプル</h4>
-            <h4 style="display: inline-block;width: 50%;text-align: center">プログラム</h4>
+            <h4>サンプル</h4>
+            <h4>プログラム</h4>
         </div>
         <div>
-            <div style="display: inline-block;width: 50%;border-right: solid 1px grey;padding: 5px">
+            <div class="sample-test-result-half-div">
                 <section>
                     <h5>入力</h5>
-                    <pre id="pre-sample0">${result.testCase.input}</pre>
+                    <textarea rows="3" readonly class="form-control">${result.testCase.input}</textarea>
                 </section>
                 <section>
                     <h5>出力</h5>
-                    <pre id="pre-sample0">${result.testCase.output}</pre>
+                    <textarea rows="3" readonly class="form-control">${result.testCase.output}</textarea>
                 </section>
             </div>    
-            <div style="display: inline-block;width: 50%;border-left: solid 1px grey;padding: 5px">
+            <div class="sample-test-result-half-div">
                 <section>
                     <h5>出力</h5>
-                    <pre id="pre-sample0">${result.output}</pre>
+                    <textarea rows="3" readonly class="form-control">${result.output}</textarea>
                 </section>
                 <section>
                     <h5>エラー出力</h5>
-                    <pre id="pre-sample0">${result.trace}</pre>
+                    <textarea rows="3" readonly class="form-control">${result.trace}</textarea>
                 </section>
             </div>
         </div>
@@ -95,7 +118,14 @@ export default class AtCoderProblemPage extends ContestPage {
         submitForm.after(resultTable);
         buttonGroup.lastElementChild.after(testButton);
 
-        document.getElementById("sample-test-button").onclick = () => {
+        const style = document.createElement("style");
+        document.head.appendChild(style);
+        const sheet = style.sheet as CSSStyleSheet;
+        rules.forEach(rule => {
+            sheet.insertRule(rule, sheet.rules.length);
+        });
+
+        document.getElementById("sample-test-button").onclick = (): void => {
             const langSelector = document.querySelector("select[name='data.LanguageId']") as HTMLInputElement;
             const sourceTextArea = submitForm.querySelector(".plain-textarea") as HTMLInputElement;
             const languageID = langSelector.value;
