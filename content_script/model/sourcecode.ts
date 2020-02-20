@@ -1,10 +1,16 @@
-enum Language {
+export enum Language {
+    Other,
     CPlusPlus,
     CSharp,
-    Python
+    Python3
 }
 
-export default class SourceCode {
+export class SourceCode {
+    constructor(language: Language, source: string) {
+        this.language = language;
+        this.source = source;
+    }
+
     language: Language;
     source: string;
 }
