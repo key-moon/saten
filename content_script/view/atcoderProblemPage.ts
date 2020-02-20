@@ -39,6 +39,53 @@ const testButton = `<button type="button" id="sample-test-button" class="btn btn
     Test sample cases
 </button>`;
 
+function getTestResultElem(index: number, result: TestResult): string {
+    return `<tr>
+    <td class="text-center">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"/>
+    </td>
+    <td class="text-center">
+        #${index + 1}
+    </td>
+    <td class="text-center">
+        <span class="label label-success">AC</span>
+    </td>
+    <td class="text-center">
+        ${result.elapsedTime}ms
+    </td>
+</tr>
+<tr>
+    <td class="" colspan="6" style="font-size:0">
+        <div>
+            <h4 style="display: inline-block;width: 50%;text-align: center">サンプル</h4>
+            <h4 style="display: inline-block;width: 50%;text-align: center">プログラム</h4>
+        </div>
+        <div>
+            <div style="display: inline-block;width: 50%;border-right: solid 1px grey;padding: 5px">
+                <section>
+                    <h5>入力</h5>
+                    <pre id="pre-sample0">${result.testCase.input}</pre>
+                </section>
+                <section>
+                    <h5>出力</h5>
+                    <pre id="pre-sample0">${result.testCase.output}</pre>
+                </section>
+            </div>    
+            <div style="display: inline-block;width: 50%;border-left: solid 1px grey;padding: 5px">
+                <section>
+                    <h5>出力</h5>
+                    <pre id="pre-sample0">${result.output}</pre>
+                </section>
+                <section>
+                    <h5>エラー出力</h5>
+                    <pre id="pre-sample0">${result.trace}</pre>
+                </section>
+            </div>
+        </div>
+    </td>
+</tr>`;
+}
+
 export default class AtCoderProblemPage extends ContestPage {
     siteName = "atcoder";
 
@@ -96,7 +143,25 @@ export default class AtCoderProblemPage extends ContestPage {
         return res;
     }
 
-    setTestResults(testResults: TestResult[]): void {
-        return;
+    getTestResultsTable(): HTMLElement {
+        return document.querySelector("#sample-test-result-table");
+    }
+
+    hideTestResults(): void {
+        this.getTestResultsTable().classList.add("hide");
+    }
+
+    showTestResults(): void {
+        this.getTestResultsTable().classList.remove("hide");
+    }
+
+    updateTestResults(): void {
+        const sampleTestTable = this.getTestResultsTable();
+        sampleTestTable.innerHTML = "";
+        for (let i = 0; i < this.testResults.length; i++) {
+            const result = this.testResults[i];
+            const elem = getTestResultElem(i, result);
+            sampleTestTable.insertAdjacentHTML("beforeend", elem);
+        }
     }
 }
