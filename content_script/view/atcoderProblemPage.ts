@@ -59,7 +59,41 @@ export default class AtCoderProblemPage extends ContestPage {
     }
 
     getTestCases(): TestCase[] {
-        return [];
+        const h3Elem = document.querySelectorAll("h3");
+
+        const inputs = [];
+        const outputs = [];
+
+        h3Elem.forEach(elem => {
+            const textContent = elem.textContent;
+            let targetArrays: string[];
+
+            if (textContent.includes("入力例")) {
+                targetArrays = inputs;
+            } else if (textContent.includes("出力例")) {
+                targetArrays = outputs;
+            } else {
+                return;
+            }
+
+            let element: Element;
+            if (elem.tagName === "PRE") {
+                element = elem;
+            } else if (elem.tagName === "DIV") {
+                element = elem.nextElementSibling;
+            } else if (elem.children.length >= 3) {
+                element = elem.children[2];
+            } else {
+                element = elem.children[0];
+            }
+            targetArrays.push(element.textContent);
+        });
+
+        const res = [];
+        for (let i = 0; i < inputs.length && i < outputs.length; i++) {
+            res.push(new TestCase(inputs[i], outputs[i]));
+        }
+        return res;
     }
 
     setTestResults(testResults: TestResult[]): void {
