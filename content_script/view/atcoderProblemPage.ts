@@ -2,6 +2,7 @@ import ProblemPage from "./problemPage";
 import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
 import { Language, SourceCode } from "../model/sourcecode";
+import Status from "../model/status";
 
 const languageDict: { [index: number]: Language } = {
     3003: Language.CPlusPlus, //C++14 GCC
@@ -54,10 +55,10 @@ const testButton = `<button type="button" id="sample-test-button" class="btn btn
 </button>`;
 
 function getTestResultElem(index: number, result: TestResult): string {
-    const status = result.status.toString();
-    const labelPrefix = status === "WJ" ? "default" : status === "AC" ? "success" : "warning";
-    let statusElem = `<span class="label label-${labelPrefix}">${status}</span>`;
-    if (statusElem === "WJ") statusElem += '<img src="//img.atcoder.jp/assets/icon/waiting.gif" alt="…">';
+    const status = result.status;
+    const labelPrefix = status === Status.WJ ? "default" : status === Status.AC ? "success" : "warning";
+    let statusElem = `<span class="label label-${labelPrefix}">${Status[status]}</span>`;
+    if (status === Status.WJ) statusElem += '<img src="//img.atcoder.jp/assets/icon/waiting.gif" alt="…">';
     return `<tr>
     <td class="text-center expand">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
@@ -109,7 +110,7 @@ export default class AtCoderProblemPage extends ProblemPage {
         const submitForm = document.querySelector("#main-container form");
         const buttonGroup = submitForm.lastElementChild.getElementsByTagName("div")[0];
         submitForm.insertAdjacentHTML("afterend", resultTable);
-        buttonGroup.insertAdjacentHTML("beforeend" ,testButton);
+        buttonGroup.insertAdjacentHTML("beforeend", testButton);
 
         const style = document.createElement("style");
         document.head.appendChild(style);
