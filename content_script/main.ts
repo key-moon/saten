@@ -1,4 +1,4 @@
-import getCurrentContestPage  from "./view/getCurrentContestPage";
+import getCurrentContestPage from "./view/getCurrentContestPage";
 import Assembly from "./util/compilationUtil";
 import TestResult from "./model/testresult";
 import { validate } from "./util/validator";
