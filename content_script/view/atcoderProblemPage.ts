@@ -1,4 +1,4 @@
-import ContestPage from "./problemPage";
+import ProblemPage from "./problemPage";
 import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
 import { Language, SourceCode } from "../model/sourcecode";
@@ -112,7 +112,7 @@ function getTestResultElem(index: number, result: TestResult): string {
 </tr>`;
 }
 
-export default class AtCoderProblemPage extends ContestPage {
+export default class AtCoderProblemPage extends ProblemPage {
     siteName = "atcoder";
 
     init(): void {

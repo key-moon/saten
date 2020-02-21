@@ -1,9 +1,9 @@
-import ProblemPage from "./view/problemPage";
+import getCurrentContestPage  from "./view/getCurrentContestPage";
 import Assembly from "./util/compilationUtil";
 import TestResult from "./model/testresult";
 import { validate } from "./util/validator";
 
-const contestSite: ProblemPage = ProblemPage.getCurrentContestSite();
+const contestSite = getCurrentContestPage();
 
 if (typeof contestSite !== "undefined") {
     contestSite.init();
