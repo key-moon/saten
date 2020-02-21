@@ -23,20 +23,13 @@ const languageDict: { [index: number]: Language } = {
 };
 
 const rules = [
-    `#sample-test-result-table h4 {
-    display: inline-block;
-    width: 50%;
-    text-align: center;
-}`,
     `#sample-test-result-table textarea {
     resize: none;
 }`,
     `.sample-test-result-half-div {
     display: inline-block;
     width: 50%;
-    padding: 5px
-    border-right: solid 1px grey;
-    border-left: solid 1px grey;
+    padding: 5px;
 }`,
     `.detail{
     font-size: 0;
@@ -46,9 +39,9 @@ const rules = [
 const resultTable = `<table class="table table-bordered table-striped th-center hide" id="sample-test-result-table">
     <thead>
         <tr>
-            <th/>
-            <th>Sample</th>
-            <th>Status</th>
+            <th width="5%"/>
+            <th width="25%">Sample</th>
+            <th width="30%">Status</th>
             <th>Exec Time</th>
         </tr>
     </thead>
@@ -63,7 +56,7 @@ const testButton = `<button type="button" id="sample-test-button" class="btn btn
 function getTestResultElem(index: number, result: TestResult): string {
     const status = result.status.toString();
     const labelPrefix = status === "WJ" ? "default" : status === "AC" ? "success" : "warning";
-    let statusElem = `<span class="label label-${labelPrefix}>${status}</span>`;
+    let statusElem = `<span class="label label-${labelPrefix}">${status}</span>`;
     if (statusElem === "WJ") statusElem += '<img src="//img.atcoder.jp/assets/icon/waiting.gif" alt="…">';
     return `<tr>
     <td class="text-center expand">
@@ -75,36 +68,32 @@ function getTestResultElem(index: number, result: TestResult): string {
     <td class="text-center">
         ${statusElem}
     </td>
-    <td>
-        ${result.elapsedTime}ms
+    <td class="text-center">
+        ${result.elapsedTime ? `${result.elapsedTime} ms` : "-"}
     </td>
 </tr>
 <tr/>
 <tr class="detail hide">
     <td colspan="4">
         <div>
-            <h4>サンプル</h4>
-            <h4>プログラム</h4>
-        </div>
-        <div>
-            <div class="sample-test-result-half-div">
+            <div class="sample-test-result-half-div" style="border-right: solid 1px grey">
                 <section>
-                    <h5>入力</h5>
-                    <textarea rows="3" readonly class="form-control">${result.testCase.input}</textarea>
+                    <h5>sample input</h5>
+                    <textarea rows="3" readonly class="form-control">${result.testCase.input || ""}</textarea>
                 </section>
                 <section>
-                    <h5>出力</h5>
-                    <textarea rows="3" readonly class="form-control">${result.testCase.output}</textarea>
+                    <h5>sample output</h5>
+                    <textarea rows="3" readonly class="form-control">${result.testCase.output || ""}</textarea>
                 </section>
             </div>    
-            <div class="sample-test-result-half-div">
+            <div class="sample-test-result-half-div" style="border-left: solid 1px grey">
                 <section>
-                    <h5>出力</h5>
-                    <textarea rows="3" readonly class="form-control">${result.output}</textarea>
+                    <h5>your error output</h5>
+                    <textarea rows="3" readonly class="form-control">${result.trace || ""}</textarea>
                 </section>
                 <section>
-                    <h5>エラー出力</h5>
-                    <textarea rows="3" readonly class="form-control">${result.trace}</textarea>
+                    <h5>your output</h5>
+                    <textarea rows="3" readonly class="form-control">${result.output || ""}</textarea>
                 </section>
             </div>
         </div>
@@ -118,8 +107,8 @@ export default class AtCoderProblemPage extends ProblemPage {
     init(): void {
         const submitForm = document.querySelector("#main-container form");
         const buttonGroup = submitForm.lastElementChild.getElementsByTagName("div")[0];
-        submitForm.after(resultTable);
-        buttonGroup.lastElementChild.after(testButton);
+        submitForm.insertAdjacentHTML("afterend", resultTable);
+        buttonGroup.insertAdjacentHTML("beforeend" ,testButton);
 
         const style = document.createElement("style");
         document.head.appendChild(style);
@@ -189,15 +178,16 @@ export default class AtCoderProblemPage extends ProblemPage {
     }
 
     updateTestResults(): void {
-        const sampleTestTable = this.getTestResultsTable();
+        const sampleTestTable = this.getTestResultsTable().querySelector("tbody");
         sampleTestTable.innerHTML = "";
         for (let i = 0; i < this.testResults.length; i++) {
             const result = this.testResults[i];
             const elemHTML = getTestResultElem(i, result);
             sampleTestTable.insertAdjacentHTML("beforeend", elemHTML);
-            const elem = sampleTestTable.lastElementChild;
-            const expandButton = elem.querySelector(".expand");
-            const detailRow = elem.querySelector(".detail");
+            const expandButtons = sampleTestTable.querySelectorAll(".expand");
+            const detailRows = sampleTestTable.querySelectorAll(".detail");
+            const expandButton = expandButtons[expandButtons.length - 1];
+            const detailRow = detailRows[detailRows.length - 1];
             expandButton.addEventListener("click", () => detailRow.classList.toggle("hide"));
         }
     }

@@ -6,7 +6,6 @@ export default {
         file: 'dist/content_script.js',
         format: 'iife'
     },
-    format: 'es6',
     plugins: [
         typescript()
     ]
