@@ -43,7 +43,7 @@ const resultTable = `<table class="table table-bordered table-striped th-center 
             <th width="5%"/>
             <th width="25%">Sample</th>
             <th width="30%">Status</th>
-            <th>Exec Time</th>
+            <th>Time</th>
         </tr>
     </thead>
     <tbody>
@@ -135,8 +135,8 @@ export default class AtCoderProblemPage extends ProblemPage {
         const inputs = [];
         const outputs = [];
 
-        h3Elem.forEach(elem => {
-            const textContent = elem.textContent;
+        h3Elem.forEach(header => {
+            const textContent = header.textContent;
             let targetArrays: string[];
 
             if (textContent.includes("入力例")) {
@@ -147,6 +147,7 @@ export default class AtCoderProblemPage extends ProblemPage {
                 return;
             }
 
+            const elem = header.nextElementSibling;
             let element: Element;
             if (elem.tagName === "PRE") {
                 element = elem;
