@@ -1,9 +1,4 @@
-export enum Language {
-    Other,
-    CPlusPlus,
-    CSharp,
-    Python3
-}
+import Language from "./language";
 
 export class SourceCode {
     constructor(language: Language, source: string) {

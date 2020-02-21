@@ -1,5 +1,5 @@
-import { SourceCode } from "../model/sourcecode";
 import { sendMessage } from "./messagePassingUtil";
+import { SourceCode } from "../../shared_model/sourcecode";
 
 class RunResult {
     constructor(initializers: { elapsedTime: number; output: string; trace: string }) {

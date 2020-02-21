@@ -1,4 +1,4 @@
-import TestCase from "./testcase";
+import TestCase from "../../shared_model/testcase";
 import Status from "./status";
 
 export default class TestResult {

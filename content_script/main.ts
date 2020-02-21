@@ -8,7 +8,7 @@ const contestSite = getCurrentContestPage();
 if (typeof contestSite !== "undefined") {
     contestSite.init();
 
-    contestSite.onTestButtonClicked = async sourceCode => {
+    contestSite.onTestButtonClicked = async (sourceCode): Promise<void> => {
         const testCases = contestSite.getTestCases();
         const results: TestResult[] = testCases.map(testCase => {
             const result = new TestResult();
