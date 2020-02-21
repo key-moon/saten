@@ -60,7 +60,8 @@ function getTestResultElem(index: number, result: TestResult): string {
     if (statusElem === "WJ") statusElem += '<img src="//img.atcoder.jp/assets/icon/waiting.gif" alt="…">';
     return `<tr>
     <td class="text-center expand">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"/>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-chevron-down hide" aria-hidden="true"></span>
     </td>
     <td class="text-center">
         #${index + 1}
@@ -188,7 +189,11 @@ export default class AtCoderProblemPage extends ProblemPage {
             const detailRows = sampleTestTable.querySelectorAll(".detail");
             const expandButton = expandButtons[expandButtons.length - 1];
             const detailRow = detailRows[detailRows.length - 1];
-            expandButton.addEventListener("click", () => detailRow.classList.toggle("hide"));
+            expandButton.addEventListener("click", () => {
+                expandButton.querySelector(".glyphicon-chevron-right").classList.toggle("hide");
+                expandButton.querySelector(".glyphicon-chevron-down").classList.toggle("hide");
+                detailRow.classList.toggle("hide");
+            });
         }
     }
 }
