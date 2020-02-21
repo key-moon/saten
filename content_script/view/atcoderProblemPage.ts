@@ -37,6 +37,9 @@ const rules = [
     padding: 5px
     border-right: solid 1px grey;
     border-left: solid 1px grey;
+}`,
+    `.detail{
+    font-size: 0;
 }`
 ];
 
@@ -63,7 +66,7 @@ function getTestResultElem(index: number, result: TestResult): string {
     let statusElem = `<span class="label label-${labelPrefix}>${status}</span>`;
     if (statusElem === "WJ") statusElem += '<img src="//img.atcoder.jp/assets/icon/waiting.gif" alt="…">';
     return `<tr>
-    <td class="text-center">
+    <td class="text-center expand">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"/>
     </td>
     <td class="text-center">
@@ -77,8 +80,8 @@ function getTestResultElem(index: number, result: TestResult): string {
     </td>
 </tr>
 <tr/>
-<tr>
-    <td colspan="4" style="font-size: 0">
+<tr class="detail hide">
+    <td colspan="4">
         <div>
             <h4>サンプル</h4>
             <h4>プログラム</h4>
@@ -190,8 +193,12 @@ export default class AtCoderProblemPage extends ContestPage {
         sampleTestTable.innerHTML = "";
         for (let i = 0; i < this.testResults.length; i++) {
             const result = this.testResults[i];
-            const elem = getTestResultElem(i, result);
-            sampleTestTable.insertAdjacentHTML("beforeend", elem);
+            const elemHTML = getTestResultElem(i, result);
+            sampleTestTable.insertAdjacentHTML("beforeend", elemHTML);
+            const elem = sampleTestTable.lastElementChild;
+            const expandButton = elem.querySelector(".expand");
+            const detailRow = elem.querySelector(".detail");
+            expandButton.addEventListener("click", () => detailRow.classList.toggle("hide"));
         }
     }
 }
