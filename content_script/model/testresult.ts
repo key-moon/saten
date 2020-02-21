@@ -3,7 +3,7 @@ import Status from "./status";
 
 export default class TestResult {
     testCase: TestCase;
-    status: Status;
+    status: Status = Status.WJ;
     output: string;
     trace: string;
     elapsedTime: number;
