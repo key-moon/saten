@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint 'content_script/**'",
     "lint:fix": "eslint --fix 'content_script/**'",
+    "bundle": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,15 +19,17 @@
   },
   "homepage": "https://github.com/key-moon/SaTeN#readme",
   "devDependencies": {
-    "typescript": "^3.7.5",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@types/chrome": "0.0.96"
+    "@types/chrome": "0.0.96",
+    "rollup": "^1.31.1"
   }
 }
