@@ -2,16 +2,15 @@ import './DotnetConsole'
 import '@microsoft/dotnet-js-interop';
 import RunResult from "../../shared_model/runresult";
 import Assembly from "./assembly";
+import {binName} from "../util/dotnetUtil";
 
-const binname = "DotnetExecutor";
-
-const reSplitter = DotNet.invokeMethod(binname, "GetRuntimeErrorSplitter");
+const reSplitter = DotNet.invokeMethod(binName, "GetRuntimeErrorSplitter");
 
 const timeLimit = 2000;
 
 let _lock = false;
 
-class DotnetAssembly extends Assembly {
+export default class DotnetAssembly extends Assembly {
     _dotnetAsmRef;
     constructor(dotNetAssemblyReference) {
         super();
@@ -26,7 +25,7 @@ class DotnetAssembly extends Assembly {
             console.log("executing...");
             DotnetConsole.discardBuffer();
             DotnetConsole.setInput(testCase.input);
-            DotNet.invokeMethodAsync(binname, "Run", this._dotnetAsmRef, timeLimit)
+            DotNet.invokeMethodAsync(binName, "Run", this._dotnetAsmRef, timeLimit)
                 .then((res: RunResult) => {
                     _lock = false;
                     res.output = DotnetConsole.getOutput();
