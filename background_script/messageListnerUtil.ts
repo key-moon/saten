@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 );
 
-export function addMessageListner(title: string, handler: (message: any) => void) {
+export function addMessageListener(title: string, handler: (message: any) => void) {
     if (handlerDict[title]){
         const oldHandler = handlerDict[title];
         handlerDict[title] = title => {
