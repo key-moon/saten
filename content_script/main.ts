@@ -18,7 +18,14 @@ if (typeof contestSite !== "undefined") {
         contestSite.showTestResults();
         contestSite.setTestResults(results);
         //TODO:コンパイル中/コンパイルエラーを表示する
-        const assembly = await Assembly.Compile(sourceCode);
+        let assembly;
+        try{
+            assembly = await Assembly.Compile(sourceCode);
+        }
+        catch (e) {
+            console.error(e);
+            return;
+        }
         for (let i = 0; i < testCases.length; i++) {
             const res = await assembly.run(testCases[i]);
             results[i].elapsedTime = res.elapsedTime;

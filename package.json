@@ -2,6 +2,7 @@
   "name": "saten",
   "version": "0.0.1",
   "description": "SaTeN is an in-browser sample tester works without network access.",
+  "typeRoots": ["types", "node_modules/@types"],
   "scripts": {
     "lint": "eslint 'content_script/**' 'background_script/**'",
     "lint:fix": "eslint --fix 'content_script/**' 'background_script/**'",

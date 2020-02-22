@@ -120,9 +120,15 @@ export default class AtCoderProblemPage extends ProblemPage {
             sheet.insertRule(rule, sheet.rules.length);
         });
 
+        const langSelector = document.querySelector("select[name='data.LanguageId']") as HTMLInputElement;
+        const sourceTextArea = submitForm.querySelector(".plain-textarea") as HTMLInputElement;
+        const toggleEditorButton = submitForm.querySelector(".btn-toggle-editor") as HTMLButtonElement;
+
+
         document.getElementById("sample-test-button").onclick = (): void => {
-            const langSelector = document.querySelector("select[name='data.LanguageId']") as HTMLInputElement;
-            const sourceTextArea = submitForm.querySelector(".plain-textarea") as HTMLInputElement;
+            //toggle editor to reflect rich editor changes
+            toggleEditorButton.click();
+            toggleEditorButton.click();
             const languageID = langSelector.value;
             const source = sourceTextArea.value;
             const language = languageDict[languageID] || Language.Other;

@@ -1,5 +1,3 @@
-const blazorStartingPromise = Blazor.start({});
-
 export const binName = "DotnetExecutor";
 
 async function get(url: string, responseType: XMLHttpRequestResponseType): Promise<object> {
@@ -24,7 +22,7 @@ async function blobToBase64(blob: Blob): Promise<string> {
     });
 }
 
-export async function loadAssemblies(): Promise<void> {
+async function _loadAssemblies(): Promise<void> {
     const res = (await get("/framework/blazor.boot.json", "json")) as { assemblyReferences: string };
     const asmRefs = res.assemblyReferences;
     for (let index = 0; index < asmRefs.length; index++) {
@@ -38,6 +36,14 @@ export async function loadAssemblies(): Promise<void> {
         }
         DotNet.invokeMethod(binName, "Apply");
     }
+}
+
+const blazorStartingPromise = Blazor.start({});
+const assemblyLoadPromise = blazorStartingPromise.then(_loadAssemblies);
+
+
+export async function loadAssemblies(): Promise<void> {
+    return assemblyLoadPromise;
 }
 
 export async function loadBlazor(): Promise<void> {
