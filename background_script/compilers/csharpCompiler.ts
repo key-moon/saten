@@ -1,20 +1,19 @@
-import {SourceCode} from "../../shared_model/sourcecode";
+import { SourceCode } from "../../shared_model/sourcecode";
 import DotnetAssembly from "../assemblies/dotnetAssembly";
-import {binName, loadBlazor} from "../util/dotnetUtil";
+import { binName, loadAssemblies, loadBlazor } from "../util/dotnetUtil";
 import Language from "../../shared_model/language";
-import {addCompiler} from "./compile";
 
 let ceSplitter: string;
 
-async function getCESplitter(): Promise<void>{
+async function getCESplitter(): Promise<void> {
     if (ceSplitter) return;
     ceSplitter = await loadBlazor().then(() => DotNet.invokeMethod(binName, "GetCompileErrorSplitter"));
 }
 
-async function compileCSharp(sourceCode: SourceCode): Promise<DotnetAssembly> {
+export default async function compileCSharp(sourceCode: SourceCode): Promise<DotnetAssembly> {
     if (sourceCode.language !== Language.CSharp) throw new Error(`Invalid language`);
     return new Promise((resolve, reject) => {
-        getCESplitter().then(() => {
+        Promise.all([loadAssemblies(), getCESplitter()]).then(() => {
             console.log("compiling...");
             DotNet.invokeMethodAsync(binName, "Compile", sourceCode.source)
                 .then(asm => {
@@ -29,5 +28,3 @@ async function compileCSharp(sourceCode: SourceCode): Promise<DotnetAssembly> {
         });
     });
 }
-
-addCompiler(Language.CSharp, compileCSharp);

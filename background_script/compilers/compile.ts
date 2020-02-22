@@ -1,4 +1,4 @@
-import {SourceCode} from "../../shared_model/sourcecode";
+import { SourceCode } from "../../shared_model/sourcecode";
 import Language from "../../shared_model/language";
 import Assembly from "../assemblies/assembly";
 
@@ -7,7 +7,7 @@ type CompilersRecord = Record<Language, Compiler>;
 
 const compilers: CompilersRecord = {} as CompilersRecord;
 
-export function addCompiler(language: Language, compiler: Compiler) {
+export function addCompiler(language: Language, compiler: Compiler): void {
     compilers[language] = compiler;
 }
 

@@ -1,6 +1,6 @@
-import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
-import { SourceCode } from "../model/sourcecode";
+import { SourceCode } from "../../shared_model/sourcecode";
+import TestCase from "../../shared_model/testcase";
 
 abstract class ProblemPage {
     testResults: TestResult[];

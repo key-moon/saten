@@ -1,5 +1,6 @@
 import { sendMessage } from "./messagePassingUtil";
 import { SourceCode } from "../../shared_model/sourcecode";
+import TestCase from "../../shared_model/testcase";
 
 class RunResult {
     constructor(initializers: { elapsedTime: number; output: string; trace: string }) {
@@ -17,10 +18,12 @@ export default class Assembly {
         this.id = initializers.id;
     }
     id: number;
-    async run(input: string): Promise<RunResult> {
-        return new RunResult(await sendMessage("run", { id: this.id, input: input }));
+    async run(testCase: TestCase): Promise<RunResult> {
+        const result = await sendMessage("run", { id: this.id, testCase: testCase });
+        return new RunResult(result as RunResult);
     }
     static async Compile(sourceCode: SourceCode): Promise<Assembly> {
-        return new Assembly(await sendMessage("compile", sourceCode));
+        const result = await sendMessage("compile", sourceCode);
+        return new Assembly(result as Assembly);
     }
 }

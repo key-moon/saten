@@ -7,5 +7,6 @@ export function validate(
     answerOutput: string,
     config: ValidatorConfig = new ValidatorConfig()
 ): Status {
+    console.log(config);
     return Status.AC;
 }

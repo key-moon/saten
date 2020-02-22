@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "SaTeN is an in-browser sample tester works without network access.",
   "scripts": {
-    "lint": "eslint 'content_script/**'",
-    "lint:fix": "eslint --fix 'content_script/**'",
+    "lint": "eslint 'content_script/**' 'background_script/**'",
+    "lint:fix": "eslint --fix 'content_script/**' 'background_script/**'",
     "bundle": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,4 +1,4 @@
-declare module DotnetConsole {
+declare namespace DotnetConsole {
     function discardBuffer(): void;
     function printLn(x: string): void;
     function printErr(x: string): void;

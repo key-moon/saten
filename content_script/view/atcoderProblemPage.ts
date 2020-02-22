@@ -1,8 +1,9 @@
 import ProblemPage from "./problemPage";
-import TestCase from "../model/testcase";
 import TestResult from "../model/testresult";
-import { Language, SourceCode } from "../model/sourcecode";
 import Status from "../model/status";
+import TestCase from "../../shared_model/testcase";
+import { SourceCode } from "../../shared_model/sourcecode";
+import Language from "../../shared_model/language";
 
 const languageDict: { [index: number]: Language } = {
     3003: Language.CPlusPlus, //C++14 GCC

@@ -20,7 +20,7 @@ if (typeof contestSite !== "undefined") {
         //TODO:コンパイル中/コンパイルエラーを表示する
         const assembly = await Assembly.Compile(sourceCode);
         for (let i = 0; i < testCases.length; i++) {
-            const res = await assembly.run(testCases[i].input);
+            const res = await assembly.run(testCases[i]);
             results[i].elapsedTime = res.elapsedTime;
             results[i].output = res.output;
             results[i].trace = res.trace;
