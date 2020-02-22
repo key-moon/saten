@@ -1,5 +1,3 @@
-import "./DotnetConsole";
-import "@microsoft/dotnet-js-interop";
 import RunResult from "../../shared_model/runresult";
 import Assembly from "./assembly";
 import { binName, loadBlazor } from "../util/dotnetUtil";
@@ -11,7 +9,7 @@ async function getRESplitter(): Promise<void> {
     reSplitter = await loadBlazor().then(() => DotNet.invokeMethod(binName, "GetRuntimeErrorSplitter"));
 }
 
-let lastPromise = getRESplitter();
+let lastPromise = loadBlazor().then(getRESplitter);
 
 const timeLimit = 2000;
 
